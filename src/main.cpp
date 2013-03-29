@@ -5,6 +5,7 @@
 namespace po = boost::program_options;
 
 #include "ConwaysGameOfLife.h"
+#include "Game.h"
 #include "helpers.h" //positions_t
 
 int main(int argc, char **argv){
@@ -14,10 +15,11 @@ int main(int argc, char **argv){
     po::options_description desc("Program options");
     desc.add_options()
         ("help", "show this help message")
-        ("width,w", po::value<unsigned int>(&width)->default_value(9),
+        ("width,w", po::value<unsigned int>(&width)->default_value(10),
          "the number of cell columns")
-        ("height,h", po::value<unsigned int>(&height)->default_value(9),
+        ("height,h", po::value<unsigned int>(&height)->default_value(10),
          "the number of cell rows")
+        //TODO: this should be the default
         ("file,f", po::value<std::string>(&tilemap)->default_value("tilemap.txt"),
          "the tilemap to be loaded as starting grid for the game");
 
@@ -31,6 +33,7 @@ int main(int argc, char **argv){
     }
 
     //TODO: if I can find width and height in the tilemap, overwrite these
+    //TODO: remove these
     std::cout<<vm["file"].as<std::string>()<<"\n"
              <<vm["width"].as<unsigned int>()<<"\n"
              <<vm["height"].as<unsigned int>()<<"\n";
@@ -49,11 +52,22 @@ int main(int argc, char **argv){
     ConwaysGameOfLife cgol(width, height, pos);
     cgol.showBoard();
 
-    for(int i=0; i<25; i++){
-        std::cout<<"\n";
-        cgol.evolve();
-        cgol.showBoard();
+    Game g;
+
+    try{
+        g = Game(width, height, pos);
     }
+    catch(std::exception &e){
+        std::cout<<e.what()<<"\nExiting...\n";
+    }
+
+    g.run();
+
+    //for(int i=0; i<25; i++){
+        //std::cout<<"\n";
+        //cgol.evolve();
+        //cgol.showBoard();
+    //}
 
     return 0;
 }
