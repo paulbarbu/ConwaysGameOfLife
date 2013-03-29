@@ -27,7 +27,6 @@ void Game::run(){
         while(SDL_PollEvent(&event)){
             processEvent(&event);
         }
-        //TODO:
     }
 }
 

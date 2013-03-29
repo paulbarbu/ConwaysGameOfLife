@@ -10,8 +10,7 @@
 
 class SDLException : public std::exception{
     public:
-        SDLException(const char* m) : msg(m) {
-        }
+        SDLException(const char* m) : msg(m) {}
 
         virtual const char* what() const throw(){
             return msg.c_str();

@@ -45,7 +45,7 @@ int main(int argc, char **argv){
         return 1;
     }
 
-    for(auto it=pos.begin(); it != pos.end(); it++){
+    for(auto it=pos.begin(); it != pos.end(); ++it){
         std::cout<<it->first<<" "<<it->second<<"\n";
     }
 
