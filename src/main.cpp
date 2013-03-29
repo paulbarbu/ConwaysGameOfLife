@@ -52,22 +52,13 @@ int main(int argc, char **argv){
     ConwaysGameOfLife cgol(width, height, pos);
     cgol.showBoard();
 
-    Game g;
-
     try{
-        g = Game(width, height, pos);
+        Game g(width, height, pos);
+        g.run();
     }
     catch(std::exception &e){
         std::cout<<e.what()<<"\nExiting...\n";
     }
-
-    g.run();
-
-    //for(int i=0; i<25; i++){
-        //std::cout<<"\n";
-        //cgol.evolve();
-        //cgol.showBoard();
-    //}
 
     return 0;
 }
