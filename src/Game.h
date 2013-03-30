@@ -28,10 +28,13 @@ class Game{
     private:
         int getWindowSize(SDL_PixelFormat *format);
         void processEvent(SDL_Event *event);
+        void setCell(int row, int col, Uint32 color);
         SDL_Surface *screen;
         int no_rows, no_columns;
         bool running = false;
         Uint32 flags = SDL_SWSURFACE|SDL_DOUBLEBUF;
+        double cell_width, cell_height;
+        Uint32 alive_color, dead_color;
 };
 
 #endif
