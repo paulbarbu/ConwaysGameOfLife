@@ -26,10 +26,12 @@ class Game{
         ~Game();
         void run();
     private:
+        int getWindowSize(SDL_PixelFormat *format);
         void processEvent(SDL_Event *event);
         SDL_Surface *screen;
         int no_rows, no_columns;
         bool running = false;
+        Uint32 flags = SDL_SWSURFACE|SDL_DOUBLEBUF;
 };
 
 #endif
