@@ -22,14 +22,13 @@ class SDLException : public std::exception{
 
 class Game{
     public:
-        Game();
-        Game(int w, int h, positions_t positions);
+        Game(int rows, int cols, positions_t positions);
         ~Game();
         void run();
     private:
         void processEvent(SDL_Event *event);
         SDL_Surface *screen;
-        int width, height;
+        int no_rows, no_columns;
         bool running = false;
 };
 

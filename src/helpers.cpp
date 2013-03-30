@@ -3,6 +3,14 @@
 
 #include "helpers.h"
 
+/**
+ * Get the initial positions from a file
+ *
+ * @param string fname the name of the configuration file
+ *
+ * @return a vector of pairs of unsigned ints representing the line and the
+ * column position of the alive cells in the first generation
+ */
 positions_t get_positions(std::string fname){
     positions_t retval;
     std::string line;
