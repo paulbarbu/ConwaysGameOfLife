@@ -10,7 +10,7 @@ namespace po = boost::program_options;
 
 int main(int argc, char **argv){
     std::string filename;
-    unsigned int no_columns, no_rows;
+    unsigned int no_columns, no_rows, interval;
 
     po::options_description desc("Program options");
     desc.add_options()
@@ -20,7 +20,9 @@ int main(int argc, char **argv){
         ("rows,r", po::value<unsigned int>(&no_rows)->default_value(10),
          "the number of rows (number of cells on the Y axis)")
         ("file,f", po::value<std::string>(&filename)->default_value("blinker.txt"),
-         "the starting generation of cells to be loaded, this option is a positional one");
+         "the starting generation of cells to be loaded, this option is a positional one")
+        ("interval,i", po::value<unsigned int>(&interval)->default_value(500),
+         "the interval at which new generations are generated and drawn, in milliseconds");
 
     po::positional_options_description positional_opts;
     positional_opts.add("file", 1);
@@ -62,7 +64,7 @@ int main(int argc, char **argv){
     //}
 
     try{
-        Game g(no_rows, no_columns, pos, &cgol);
+        Game g(no_rows, no_columns, interval, &cgol, pos);
         g.run();
     }
     catch(std::exception &e){

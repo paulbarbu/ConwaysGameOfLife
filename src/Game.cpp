@@ -8,6 +8,10 @@
  *
  * @param int rows the number of rows that will be displayed
  * @param int cols the number of columns that will be displayed
+ * @param int i the time interval in milliseconds after which the next
+ * generation is drawn
+ * @param ConwaysGameOfLife *cgol pointer to the object that encapsulates the
+ * game's actual logic
  * @param positions_t positions the first generation of cells to be displayed
  *
  * @throws SDLException if SDL coudn't be initialized
@@ -18,8 +22,8 @@
  *
  * TODO: allow the user to draw his own pattern using the mouse at the start
  */
-Game::Game(int rows, int cols, positions_t pos, ConwaysGameOfLife *cgol)
-    : no_rows(rows), no_columns(cols), life(cgol) {
+Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol, positions_t pos)
+    : no_rows(rows), no_columns(cols), interval(i), life(cgol) {
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         throw SDLException("Couldn't initialize SDL!");
@@ -98,7 +102,7 @@ void Game::run(){
         setCells(positions.first, alive_color);
         setCells(positions.second, dead_color);
 
-        SDL_Delay(500);
+        SDL_Delay(interval);
     }
 }
 

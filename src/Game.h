@@ -23,7 +23,7 @@ class SDLException : public std::exception{
 
 class Game{
     public:
-        Game(int rows, int cols, positions_t pos, ConwaysGameOfLife *cgol);
+        Game(int rows, int cols, unsigned int interval, ConwaysGameOfLife *cgol, positions_t pos);
         ~Game();
         void run();
     private:
@@ -37,6 +37,7 @@ class Game{
         Uint32 flags = SDL_SWSURFACE|SDL_DOUBLEBUF;
         double cell_width, cell_height;
         Uint32 alive_color, dead_color;
+        unsigned int interval;
         ConwaysGameOfLife *life;
 };
 
