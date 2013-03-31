@@ -22,10 +22,12 @@
  * }
  *
  * TODO: allow the user to draw his own pattern using the mouse at the start
+ * A nice feature for this would be to highlight the cell under the and only
+ * set it if the user clicks on it
  */
-Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol,
-           positions_t pos) : no_rows(rows), no_columns(cols), interval(i),
-                              life(cgol){
+Game::Game(int rows, int cols, unsigned int i, SDL_Color acolor,
+           SDL_Color dcolor, ConwaysGameOfLife *cgol, positions_t pos)
+        : no_rows(rows), no_columns(cols), interval(i), life(cgol){
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         throw SDLException("Couldn't initialize SDL!");
@@ -44,9 +46,8 @@ Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol,
         throw SDLException("Couldn't set SDL video mode!");
     }
 
-    // TODO: these should be supplied by the user
-    alive_color = SDL_MapRGB(vinfo->vfmt, 255, 255, 255);
-    dead_color = SDL_MapRGB(vinfo->vfmt, 0, 0, 0);
+    alive_color = SDL_MapRGB(vinfo->vfmt, acolor.r, acolor.g, acolor.b);
+    dead_color = SDL_MapRGB(vinfo->vfmt, dcolor.r, dcolor.g, dcolor.b);
 
     std::vector<SDL_Rect> rects = setCells(pos, alive_color);
 

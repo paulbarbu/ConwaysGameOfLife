@@ -47,21 +47,21 @@ int main(int argc, char **argv){
         return 1;
     }
 
-    //for(auto it=pos.begin(); it != pos.end(); ++it){
-        //std::cout<<it->first<<" "<<it->second<<"\n";
-    //}
-
     ConwaysGameOfLife cgol(no_rows, no_columns, pos);
-    //cgol.showBoard();
 
-    //for(int i=0; i<3; i++){
-        //std::cout<<"\n";
-        //cgol.evolve();
-        //cgol.showBoard();
-    //}
+    SDL_Color alive_cell_color;
+    alive_cell_color.r = 255;
+    alive_cell_color.g = 255;
+    alive_cell_color.b = 255;
+
+    SDL_Color dead_cell_color;
+    dead_cell_color.r = 0;
+    dead_cell_color.g = 0;
+    dead_cell_color.b = 0;
 
     try{
-        Game g(no_rows, no_columns, interval, &cgol, pos);
+        Game g(no_rows, no_columns, interval, alive_cell_color, dead_cell_color,
+               &cgol, pos);
         g.run();
     }
     catch(std::exception &e){

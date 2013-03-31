@@ -23,8 +23,8 @@ class SDLException : public std::exception{
 
 class Game{
     public:
-        Game(int rows, int cols, unsigned int interval, ConwaysGameOfLife *cgol,
-             positions_t pos);
+        Game(int rows, int cols, unsigned int interval, SDL_Color acolor,
+             SDL_Color dcolor, ConwaysGameOfLife *cgol, positions_t pos);
         ~Game();
         void run();
     private:
