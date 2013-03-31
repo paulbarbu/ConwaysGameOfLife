@@ -19,12 +19,15 @@ int main(int argc, char **argv){
          "the number of columns (number of cells on the X axis)")
         ("rows,r", po::value<unsigned int>(&no_rows)->default_value(10),
          "the number of rows (number of cells on the Y axis)")
-        //TODO: this should be the default
         ("file,f", po::value<std::string>(&filename)->default_value("blinker.txt"),
-         "the starting generation of cells to be loaded");
+         "the starting generation of cells to be loaded, this option is a positional one");
+
+    po::positional_options_description positional_opts;
+    positional_opts.add("file", 1);
 
     po::variables_map vm;
-    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::store(po::command_line_parser(argc, argv).options(desc)
+                .positional(positional_opts).run(), vm);
     po::notify(vm);
 
     if(vm.count("help")){
