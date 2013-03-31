@@ -15,6 +15,8 @@
  * @see{
  *  game::getWindowSize
  * }
+ *
+ * TODO: allow the user to draw his own pattern using the mouse at the start
  */
 Game::Game(int rows, int cols, positions_t pos, ConwaysGameOfLife *cgol)
     : no_rows(rows), no_columns(cols), life(cgol) {

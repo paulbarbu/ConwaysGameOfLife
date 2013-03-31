@@ -1,7 +1,19 @@
 Conway's Game of Life
 =====================
 
-C++ implementation using SDL
+C++ implementation using SDL and Boost libraries
+
+How to run it
+=============
+
+```
+cd src
+make
+./conway.exe --help
+./conway.exe
+./conway.exe glider.txt
+./conway.exe gosper_glider_gun.txt -r 50 -c 50
+```
 
 License
 =======
