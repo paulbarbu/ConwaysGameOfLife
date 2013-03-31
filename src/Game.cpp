@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 
 #include "Game.h"
 
@@ -33,9 +34,8 @@ Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol, position
 
     int size = getWindowSize(vinfo->vfmt);
 
-    //TODO: floating point numbers
-    cell_width = size/no_columns;
-    cell_height = size/no_rows;
+    cell_width = ceil((double)size/no_columns);
+    cell_height = ceil((double)size/no_rows);
 
     // TODO: these should be supplied by the user
     alive_color = SDL_MapRGB(vinfo->vfmt, 255, 255, 255);
