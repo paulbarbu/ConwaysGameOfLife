@@ -43,10 +43,13 @@ int main(int argc, char **argv){
              //<<vm["columns"].as<unsigned int>()<<"\n"
              //<<vm["rows"].as<unsigned int>()<<"\n";
 
-    positions_t pos = get_positions(filename);
+    positions_t pos = read_config(filename, no_rows, no_columns);
 
     if(pos.size() == 0){
-        std::cout<<"Could not get positions in order to start the game\n";
+        std::cout<<"Invalid configuration file provided!\n"
+            "Check the number of rows and columns you provided and the initial"
+            " size of the generation of cells, the generation may not fit in "
+            "the screen size.";
         return 1;
     }
 

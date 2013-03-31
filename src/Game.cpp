@@ -33,6 +33,7 @@ Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol, position
 
     int size = getWindowSize(vinfo->vfmt);
 
+    //TODO: floating point numbers
     cell_width = size/no_columns;
     cell_height = size/no_rows;
 
@@ -66,6 +67,12 @@ Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol, position
  * necessarily the current one, change this, see: http://sdl.beuc.net/sdl.wiki/SDL_VideoInfo
  */
 int Game::getWindowSize(SDL_PixelFormat *format){
+    //TODO: run ./conway gosper_glider_gun.txt with 10 and 37 as the size and it
+    //will look awful, this should be changed so the window can take different
+    //dimenstions on the X and Y axis in order to keep the square aspect ratio
+    //of the cells, ie: if the user doesn't provide a square screen by default
+    ////set this size on one axis, then set the min(cell_width, cell_height)*size
+    //as the other axis
     SDL_Rect **modes = SDL_ListModes(format, flags|SDL_FULLSCREEN);
 
     if(modes != (SDL_Rect**) -1){
