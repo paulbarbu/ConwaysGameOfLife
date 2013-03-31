@@ -20,7 +20,8 @@
  * provided generation is bigger than the provided number of rows and columns to
  * be displayed or if there is no starting generation in the file)
  */
-positions_t read_config(std::string fname, unsigned int &no_rows, unsigned int &no_columns){
+positions_t read_config(std::string fname, unsigned int &no_rows,
+                        unsigned int &no_columns){
     positions_t retval;
     std::string line;
     bool first_line = true;

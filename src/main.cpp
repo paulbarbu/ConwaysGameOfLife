@@ -37,12 +37,6 @@ int main(int argc, char **argv){
         return 0;
     }
 
-    //TODO: if I can find width and height in the file, overwrite these
-    //TODO: remove these
-    //std::cout<<vm["file"].as<std::string>()<<"\n"
-             //<<vm["columns"].as<unsigned int>()<<"\n"
-             //<<vm["rows"].as<unsigned int>()<<"\n";
-
     positions_t pos = read_config(filename, no_rows, no_columns);
 
     if(pos.size() == 0){

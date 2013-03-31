@@ -23,8 +23,9 @@
  *
  * TODO: allow the user to draw his own pattern using the mouse at the start
  */
-Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol, positions_t pos)
-    : no_rows(rows), no_columns(cols), interval(i), life(cgol) {
+Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol,
+           positions_t pos) : no_rows(rows), no_columns(cols), interval(i),
+                              life(cgol){
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         throw SDLException("Couldn't initialize SDL!");

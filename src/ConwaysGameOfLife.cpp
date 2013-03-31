@@ -11,7 +11,7 @@
  * @param positions_t pos the cells' positions in the first generation
  */
 ConwaysGameOfLife::ConwaysGameOfLife(int rows, int cols, positions_t pos)
-    : no_rows(rows), no_columns(cols) {
+        : no_rows(rows), no_columns(cols) {
 
     board.resize(no_rows);
 
