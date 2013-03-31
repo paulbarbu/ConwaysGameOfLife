@@ -10,7 +10,8 @@ namespace po = boost::program_options;
 
 int main(int argc, char **argv){
     std::string filename;
-    unsigned int no_columns, no_rows, interval;
+    unsigned int no_columns, no_rows;
+    int interval;
 
     po::options_description desc("Program options");
     desc.add_options()
@@ -21,7 +22,7 @@ int main(int argc, char **argv){
          "the number of rows (number of cells on the Y axis)")
         ("file,f", po::value<std::string>(&filename)->default_value("blinker.txt"),
          "the starting generation of cells to be loaded, this option is a positional one")
-        ("interval,i", po::value<unsigned int>(&interval)->default_value(500),
+        ("interval,i", po::value<int>(&interval)->default_value(500),
          "the interval at which new generations are generated and drawn, in milliseconds");
 
     po::positional_options_description positional_opts;
@@ -35,6 +36,11 @@ int main(int argc, char **argv){
     if(vm.count("help")){
         std::cout<<desc<<"\n";
         return 0;
+    }
+
+    if(interval <= 0){
+        std::cout<<"Please pass a strictly positive interval\n";
+        return 1;
     }
 
     positions_t pos = read_config(filename, no_rows, no_columns);
