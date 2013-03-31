@@ -9,7 +9,7 @@ How to install it
 ```
 cd src
 make
-sudo make install
+# make install
 ```
 
 Or if you're on Arch Linux, download the `PKGBUILD` and:
@@ -35,7 +35,7 @@ How to uninstall it
 If you used the first method described above:
 ```
 cd src
-sudo make uninstall
+# make uninstall
 ```
 
 If you used the second method described above:
