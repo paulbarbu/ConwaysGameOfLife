@@ -3,16 +3,44 @@ Conway's Game of Life
 
 C++ implementation using SDL and Boost libraries
 
-How to run it
-=============
+How to install it
+=================
 
 ```
 cd src
 make
-./conway.exe --help
-./conway.exe
-./conway.exe glider.txt
-./conway.exe gosper_glider_gun.txt -r 50 -c 50
+sudo make install
+```
+
+Or if you're on Arch Linux, download the `PKGBUILD` and:
+```
+makepkg -si
+```
+
+Please check the `/usr/share/conway/` directory for example configuration files.
+
+How to run it
+=============
+
+```
+conway --help
+conway
+conway glider.txt
+conway /usr/share/conway/gosper_glider_gun.txt -r 50 -c 50
+```
+
+How to uninstall it
+===================
+
+If you used the first method described above:
+```
+cd src
+sudo make uninstall
+```
+
+If you used the second method described above:
+```
+# pacman -Rs conway-git
 ```
 
 License
