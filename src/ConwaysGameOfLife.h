@@ -12,7 +12,7 @@ class ConwaysGameOfLife{
         ConwaysGameOfLife(int rows, int cols, positions_t pos);
         void showBoard();
         std::pair<positions_t, positions_t> getGenerationChanges();
-        void evolve();
+        std::pair<positions_t, positions_t> evolve();
     private:
         neighbours_t getNeighboursStatus(int line, int col);
         std::vector<std::vector<int>> board;

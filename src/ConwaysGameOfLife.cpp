@@ -36,25 +36,35 @@ void ConwaysGameOfLife::showBoard(){
 /**
  * Advance to the next generation of cells by setting the alive cells and dead
  * cells
+ *
+ * @return a pair of positions_t where the first member of the pair is the
+ * structure that holds the alive cells and the second member is a position_t
+ * that holds the cells that should be dead in the next generation
+ *
+ * @see{
+ *  ConwaysGameOfLife::getGenerationChanges
+ *}
  */
-void ConwaysGameOfLife::evolve(){
+std::pair<positions_t, positions_t> ConwaysGameOfLife::evolve(){
     std::pair<positions_t, positions_t> pos = getGenerationChanges();
 
     // set the living cells
-    std::cout<<"Lives: ";
+    //std::cout<<"Lives: ";
     for(auto it=pos.first.begin(); it != pos.first.end(); ++it){
-        std::cout<<"("<<it->first<<" "<<it->second<<") ";
+        //std::cout<<"("<<it->first<<" "<<it->second<<") ";
         board[it->first][it->second] = 1;
     }
 
     // set the dead cells
-    std::cout<<"\nDies: ";
+    //std::cout<<"\nDies: ";
     for(auto it=pos.second.begin(); it != pos.second.end(); ++it){
-        std::cout<<"("<<it->first<<" "<<it->second<<") ";
+        //std::cout<<"("<<it->first<<" "<<it->second<<") ";
         board[it->first][it->second] = 0;
     }
 
-    std::cout<<"\n";
+    //std::cout<<"\n";
+
+    return pos;
 }
 
 /**
@@ -64,6 +74,10 @@ void ConwaysGameOfLife::evolve(){
  * @return a pair of positions_t where the first member of the pair is the
  * structure that holds the alive cells and the second member is a position_t
  * that holds the cells that should be dead in the next generation
+ *
+ * @see{
+ *  ConwaysGameOfLife::getNeighboursStatus
+ * }
  */
 std::pair<positions_t, positions_t> ConwaysGameOfLife::getGenerationChanges(){
     positions_t lives, dies;
