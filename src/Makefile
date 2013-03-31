@@ -8,7 +8,7 @@ DEBUG_FLAGS = -g
 
 LIBS = -lSDL -lboost_program_options
 
-APP_NAME = conway.exe
+APP_NAME = conway
 
 SRC_FILES = main.cpp Game.cpp ConwaysGameOfLife.cpp helpers.cpp
 
@@ -21,8 +21,17 @@ debug:
 valgrind: debug
 	$(VALGRIND) $(V_FALGS) ./$(APP_NAME) $(args)
 
+install:
+	install -m 755 $(APP_NAME) $(DESTDIR)/usr/bin/
+	mkdir $(DESTDIR)/usr/share/$(APP_NAME)
+	install -m 666 *.txt $(DESTDIR)/usr/share/$(APP_NAME)
+
+uninstall:
+	rm -f $(DESTDIR)/usr/bin/$(APP_NAME)
+	rm -rf $(DESTDIR)/usr/share/$(APP_NAME)
+
 %.o: %.cpp
 	$(CXX) $(CXX_FLAGS) -c $< -o $@
 
 clean:
-	rm -rf *.o *.exe
+	rm -rf *.o ./$(APP_NAME)
