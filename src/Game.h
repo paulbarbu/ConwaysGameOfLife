@@ -6,6 +6,7 @@
 
 #include "SDL/SDL.h"
 
+#include "ConwaysGameOfLife.h"
 #include "helpers.h" // positions_t
 
 class SDLException : public std::exception{
@@ -22,7 +23,7 @@ class SDLException : public std::exception{
 
 class Game{
     public:
-        Game(int rows, int cols, positions_t positions);
+        Game(int rows, int cols, positions_t pos, ConwaysGameOfLife *cgol);
         ~Game();
         void run();
     private:
@@ -36,6 +37,7 @@ class Game{
         Uint32 flags = SDL_SWSURFACE|SDL_DOUBLEBUF;
         double cell_width, cell_height;
         Uint32 alive_color, dead_color;
+        ConwaysGameOfLife *life;
 };
 
 #endif

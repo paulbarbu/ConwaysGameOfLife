@@ -59,7 +59,7 @@ int main(int argc, char **argv){
     //}
 
     try{
-        Game g(no_rows, no_columns, pos);
+        Game g(no_rows, no_columns, pos, &cgol);
         g.run();
     }
     catch(std::exception &e){

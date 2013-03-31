@@ -11,9 +11,13 @@
  * @param positions_t positions the first generation of cells to be displayed
  *
  * @throws SDLException if SDL coudn't be initialized
+ *
+ * @see{
+ *  game::getWindowSize
+ * }
  */
-Game::Game(int rows, int cols, positions_t positions)
-    : no_rows(rows), no_columns(cols) {
+Game::Game(int rows, int cols, positions_t pos, ConwaysGameOfLife *cgol)
+    : no_rows(rows), no_columns(cols), life(cgol) {
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         throw SDLException("Couldn't initialize SDL!");
@@ -30,7 +34,7 @@ Game::Game(int rows, int cols, positions_t positions)
     alive_color = SDL_MapRGB(vinfo->vfmt, 255, 255, 255);
     dead_color = SDL_MapRGB(vinfo->vfmt, 0, 0, 0);
 
-    std::cout<<"Window size, Cell width and height: "<<size<<", "<<cell_width<<" "<<cell_height<<"\n";
+    //std::cout<<"Window size, Cell width and height: "<<size<<", "<<cell_width<<" "<<cell_height<<"\n";
 
     screen = SDL_SetVideoMode(size, size, vinfo->vfmt->BitsPerPixel, flags);
 
@@ -38,6 +42,7 @@ Game::Game(int rows, int cols, positions_t positions)
         throw SDLException("Couldn't set SDL video mode!");
     }
 
+    setCells(pos, alive_color);
     running = true;
 }
 
@@ -71,22 +76,27 @@ int Game::getWindowSize(SDL_PixelFormat *format){
 /**
  * Actually run the game:
  * process events, advance through generations and draw the cells
+ *
+ * @see{
+ *  Game::setCell
+ *  Game::setCells
+ *  Game::processEvent
+ * }
  */
 void Game::run(){
     SDL_Event event;
-    setCell(1, 1, alive_color);
-    setCell(1, 2, alive_color);
-    setCell(1, 3, alive_color);
-    setCell(1, 3, dead_color);
-    setCell(9, 9, alive_color);
-    setCell(0, 0, alive_color);
-    setCell(10, 10, alive_color);
-    setCell(100, 100, alive_color);
 
     while(running){
         while(SDL_PollEvent(&event)){
             processEvent(&event);
         }
+
+        std::pair<positions_t, positions_t> positions = life->evolve();
+
+        setCells(positions.first, alive_color);
+        setCells(positions.second, dead_color);
+
+        SDL_Delay(500);
     }
 }
 
