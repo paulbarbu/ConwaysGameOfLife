@@ -27,7 +27,8 @@ class Game{
         ~Game();
         void run();
     private:
-        int getWindowSize(SDL_PixelFormat *format);
+        void setCellSideLength(unsigned int length);
+        SDL_Rect getWindowSize(unsigned int length);
         void processEvent(SDL_Event *event);
         void setCell(int row, int col, Uint32 color);
         void setCells(positions_t pos, Uint32 color);
@@ -35,7 +36,7 @@ class Game{
         int no_rows, no_columns;
         bool running = false;
         Uint32 flags = SDL_SWSURFACE|SDL_DOUBLEBUF;
-        double cell_width, cell_height;
+        double cell_side_length;
         Uint32 alive_color, dead_color;
         unsigned int interval;
         ConwaysGameOfLife *life;
