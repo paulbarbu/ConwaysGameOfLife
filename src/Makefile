@@ -24,7 +24,7 @@ valgrind: debug
 install:
 	install -m 755 $(APP_NAME) $(DESTDIR)/usr/bin/
 	mkdir $(DESTDIR)/usr/share/$(APP_NAME)
-	install -m 666 *.txt $(DESTDIR)/usr/share/$(APP_NAME)
+	install -m 744 *.txt $(DESTDIR)/usr/share/$(APP_NAME)
 
 uninstall:
 	rm -f $(DESTDIR)/usr/bin/$(APP_NAME)
