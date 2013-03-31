@@ -1,3 +1,7 @@
 *.exe
 *.o
 src/conway
+*.pkg.tar.xz
+pkg/
+src/conwaysgameoflife-build/
+src/conwaysgameoflife/
