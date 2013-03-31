@@ -37,23 +37,23 @@ int main(int argc, char **argv){
 
     //TODO: if I can find width and height in the file, overwrite these
     //TODO: remove these
-    std::cout<<vm["file"].as<std::string>()<<"\n"
-             <<vm["columns"].as<unsigned int>()<<"\n"
-             <<vm["rows"].as<unsigned int>()<<"\n";
+    //std::cout<<vm["file"].as<std::string>()<<"\n"
+             //<<vm["columns"].as<unsigned int>()<<"\n"
+             //<<vm["rows"].as<unsigned int>()<<"\n";
 
-    positions_t pos(get_positions(filename));
+    positions_t pos = get_positions(filename);
 
     if(pos.size() == 0){
         std::cout<<"Could not get positions in order to start the game\n";
         return 1;
     }
 
-    for(auto it=pos.begin(); it != pos.end(); ++it){
-        std::cout<<it->first<<" "<<it->second<<"\n";
-    }
+    //for(auto it=pos.begin(); it != pos.end(); ++it){
+        //std::cout<<it->first<<" "<<it->second<<"\n";
+    //}
 
     ConwaysGameOfLife cgol(no_rows, no_columns, pos);
-    cgol.showBoard();
+    //cgol.showBoard();
 
     //for(int i=0; i<3; i++){
         //std::cout<<"\n";
