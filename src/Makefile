@@ -1,6 +1,9 @@
 CXX = clang++
 CXX_FLAGS = -pedantic -Wall -Wshadow -Wpointer-arith -Wcast-qual -std=c++11
 
+VALGRIND = valgrind
+V_FALGS = --leak-check=full
+
 DEBUG_FLAGS = -g
 
 LIBS = -lSDL -lboost_program_options
@@ -14,6 +17,9 @@ executable:
 
 debug:
 	$(CXX) $(CXX_FLAGS) $(DEBUG_FLAGS) -o $(APP_NAME) $(SRC_FILES) $(LIBS)
+
+valgrind: debug
+	$(VALGRIND) $(V_FALGS) ./$(APP_NAME) $(args)
 
 %.o: %.cpp
 	$(CXX) $(CXX_FLAGS) -c $< -o $@
