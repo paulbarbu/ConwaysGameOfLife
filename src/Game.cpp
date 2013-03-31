@@ -47,7 +47,10 @@ Game::Game(int rows, int cols, unsigned int i, ConwaysGameOfLife *cgol, position
     alive_color = SDL_MapRGB(vinfo->vfmt, 255, 255, 255);
     dead_color = SDL_MapRGB(vinfo->vfmt, 0, 0, 0);
 
-    setCells(pos, alive_color);
+    std::vector<SDL_Rect> rects = setCells(pos, alive_color);
+
+    SDL_UpdateRects(screen, rects.size(), rects.data());
+
     running = true;
 }
 
@@ -108,8 +111,14 @@ void Game::run(){
 
         std::pair<positions_t, positions_t> positions = life->evolve();
 
-        setCells(positions.first, alive_color);
-        setCells(positions.second, dead_color);
+        std::vector<SDL_Rect> cell_rects(setCells(positions.first, alive_color));
+        std::vector<SDL_Rect> dead_cell_rects(
+            setCells(positions.second, dead_color));
+
+        cell_rects.insert(cell_rects.end(), dead_cell_rects.begin(),
+            dead_cell_rects.end());
+
+        SDL_UpdateRects(screen, cell_rects.size(), cell_rects.data());
 
         SDL_Delay(interval);
     }
@@ -122,18 +131,17 @@ void Game::run(){
  * @param int col the column where the cell is located
  * @param Uint32 color the color the cell should be set to
  *
- * @throws SDLException in case that SDL_FillRect has failed
+ * @return a SDL_Rect that represents the area that needs updating in order to
+ * actually view the new cell's color
  *
- * TODO: for optimization purposes I can return a rect to be SDL_UpdateRect'ed
- * and then in setCells I would return an array of rects to be updated.
- * The updating would then be done in run()
+ * @throws SDLException in case that SDL_FillRect has failed
  */
-void Game::setCell(int row, int col, Uint32 color){
+SDL_Rect Game::setCell(int row, int col, Uint32 color){
+    SDL_Rect cell_rect;
     if(row < 0 || col < 0 || row >= no_rows || col >= no_columns){
-        return;
+        return cell_rect;
     }
 
-    SDL_Rect cell_rect;
     cell_rect.w = cell_side_length;
     cell_rect.h = cell_side_length;
 
@@ -145,7 +153,7 @@ void Game::setCell(int row, int col, Uint32 color){
         throw SDLException("Couldn't draw to screen!");
     }
 
-    SDL_UpdateRect(screen, cell_rect.x, cell_rect.y, cell_rect.w, cell_rect.h);
+    return cell_rect;
 }
 
 /**
@@ -154,14 +162,20 @@ void Game::setCell(int row, int col, Uint32 color){
  * @param positions_t pos the positions where the cells are located
  * @param Uint32 color the color the cells should be filled with
  *
+ * @return a std::vector<SDL_Rect> that represents the areas that need updating
+ * in order to actually view the new cells' color
+ *
  * @see{
  *  Game::setCell
  * }
  */
-void Game::setCells(positions_t pos, Uint32 color){
+std::vector<SDL_Rect> Game::setCells(positions_t pos, Uint32 color){
+    std::vector<SDL_Rect> rects;
     for(auto it=pos.begin(); it != pos.end(); ++it){
-        setCell(it->first, it->second, color);
+        rects.push_back(setCell(it->first, it->second, color));
     }
+
+    return rects;
 }
 
 /**
