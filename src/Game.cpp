@@ -96,6 +96,12 @@ void Game::run(){
  * @param int row the row where the cell is located
  * @param int col the column where the cell is located
  * @param Uint32 color the color the cell should be set to
+ *
+ * @throws SDLException in case that SDL_FillRect has failed
+ *
+ * TODO: for optimization purposes I can return a rect to be SDL_UpdateRect'ed
+ * and then in setCells I would return an array of rects to be updated.
+ * The updating would then be done in run()
  */
 void Game::setCell(int row, int col, Uint32 color){
     if(row < 0 || col < 0 || row >= no_rows || col >= no_columns){
@@ -109,8 +115,28 @@ void Game::setCell(int row, int col, Uint32 color){
     cell_rect.x = cell_width * col;
     cell_rect.y = cell_height * row;
 
-    SDL_FillRect(screen, &cell_rect, color);
+    int err = SDL_FillRect(screen, &cell_rect, color);
+    if(err == -1){
+        throw SDLException("Couldn't draw to screen!");
+    }
+
     SDL_UpdateRect(screen, cell_rect.x, cell_rect.y, cell_rect.w, cell_rect.h);
+}
+
+/**
+ * Set the color of several cells
+ *
+ * @param positions_t pos the positions where the cells are located
+ * @param Uint32 color the color the cells should be filled with
+ *
+ * @see{
+ *  Game::setCell
+ * }
+ */
+void Game::setCells(positions_t pos, Uint32 color){
+    for(auto it=pos.begin(); it != pos.end(); ++it){
+        setCell(it->first, it->second, color);
+    }
 }
 
 /**
