@@ -41,9 +41,9 @@ int main(int argc, char **argv){
 
     if(pos.size() == 0){
         std::cout<<"Invalid configuration file provided!\n"
-            "Check the number of rows and columns you provided and the initial"
-            " size of the generation of cells, the generation may not fit in "
-            "the screen size.";
+            "Check the number of rows and columns you provided and the initial\n"
+            "size of the generation of cells, the generation may not fit in\n"
+            "the screen size.\n";
         return 1;
     }
 
